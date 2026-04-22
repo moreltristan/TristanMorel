@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tristan Morel | Ingénieur Agronome</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* ==============================================
+           VARIABLES & THÈME (Mode Sombre / Vert)
+           ============================================== */
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-glass: rgba(15, 23, 42, 0.8);
+            --text-main: #f8fafc;
+            --text-muted: #cbd5e1;
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --border-color: #334155;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+            --glow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* ==============================================
+           RESET & BASE
+           ============================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* ==============================================
+           TYPOGRAPHIE & UTILITAIRES
+           ============================================== */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 3rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==============================================
+           HEADER & NAVIGATION & LANGUES
+           ============================================== */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.2rem 2rem;
+            background: var(--bg-glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--text-main);
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        /* Sélecteur de langue */
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+            border-left: 1px solid var(--border-color);
+            padding-left: 1.5rem;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.25rem 0.5rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent);
+            color: var(--text-main);
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+        }
+
+        /* ==============================================
+           HERO SECTION
+           ============================================== */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 0 2rem;
+            background: radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 10;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-title span {
+            background: linear-gradient(to right, var(--accent), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--bg-primary);
+            border: 2px solid var(--accent);
+            box-shadow: var(--glow);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 2px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        /* ==============================================
+           EXPÉRIENCES (TIMELINE)
+           ============================================== */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 2px;
+            background-color: var(--border-color);
+            top: 0;
+            bottom: 0;
+            left: 20px;
+            margin-left: -1px;
+        }
+
+        .timeline-item {
+            padding: 2rem 0 2rem 3rem;
+            position: relative;
+            background: inherit;
+            width: 100%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            left: 12px;
+            top: 2.5rem;
+            background-color: var(--accent);
+            border: 4px solid var(--bg-primary);
+            border-radius: 50%;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-item:hover::after {
+            transform: scale(1.3);
+            box-shadow: var(--glow);
+        }
+
+        .timeline-content {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateX(5px);
+            border-color: var(--accent);
+        }
+
+        .timeline-date {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+        }
+
+        .timeline-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* ==============================================
+           COMPÉTENCES
+           ============================================== */
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .skill-badge {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: default;
+        }
+
+        .skill-badge:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.15);
+        }
+
+        /* ==============================================
+           PORTFOLIO / GALERIE
+           ============================================== */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15,23,42,0.9) 0%, rgba(15,23,42,0.2) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        .gallery-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            transform: translateY(10px);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-title {
+            transform: translateY(0);
+        }
+
+        /* LIGHTBOX */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox.active .lightbox-img {
+            transform: scale(1);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: color 0.2s ease;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent);
+        }
+
+        /* ==============================================
+           FOOTER / CONTACT
+           ============================================== */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin-bottom: 2rem;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info a {
+            color: var(--accent);
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 2rem;
+            transition: text-shadow 0.3s ease;
+        }
+        
+        .contact-info a:hover {
+            text-shadow: var(--glow);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            color: var(--text-muted);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: var(--glow);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* ==============================================
+           MEDIA QUERIES (Responsive)
+           ============================================== */
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.2rem; }
+            nav ul { display: none; }
+            .lang-switcher { border-left: none; padding-left: 0; }
+            .timeline::after { left: 15px; }
+            .timeline-item { padding-left: 2.5rem; }
+            .timeline-item::after { left: 7px; }
+            .btn-group { flex-direction: column; width: 100%; max-width: 300px; margin: 0 auto;}
+            .btn { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">Tristan<span>Morel.</span></div>
+        <div class="nav-container">
+            <nav>
+                <ul>
+                    <li><a href="#hero" data-i18n="nav-home">Accueil</a></li>
+                    <li><a href="#experience" data-i18n="nav-exp">Parcours</a></li>
+                    <li><a href="#skills" data-i18n="nav-skills">Compétences</a></li>
+                    <li><a href="#portfolio" data-i18n="nav-port">Missions</a></li>
+                </ul>
+            </nav>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+                <button class="lang-btn" onclick="setLang('es')">ES</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section id="hero">
+            <div class="hero-content reveal">
+                <h1 class="hero-title" data-i18n="hero-title">Ingénieur <span>Agronome</span></h1>
+                <p class="hero-subtitle" data-i18n="hero-subtitle">Spécialisé en cultures tropicales et transition énergétique. J'accompagne la résilience climatique et l'autonomie des systèmes agricoles à l'international.</p>
+                <div class="btn-group">
+                    <a href="MOREL_Tristan_CV_FR.pdf" class="btn btn-primary" target="_blank" download="MOREL_Tristan_CV_FR.pdf" data-i18n="btn-cv">
+                        <i data-lucide="download"></i> Télécharger le CV
+                    </a>
+                    <a href="#portfolio" class="btn btn-outline" data-i18n="btn-missions">
+                        Voir mes missions
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXPÉRIENCES -->
+        <section id="experience" class="container">
+            <h2 class="section-title reveal" data-i18n="exp-title">Mon Parcours</h2>
+            <div class="timeline">
+                
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2025</span>
+                        <h3 class="timeline-title" data-i18n="exp1-title">Ingénieur Agronome @ Guayule Kenya Limited (Kenya)</h3>
+                        <p class="timeline-desc" data-i18n="exp1-desc">Amélioration variétale et semences en zone semi-aride. Optimisation de la production (levée de dormance, fertilisation), analyse phénotypique (R, ImageJ) et création de guides techniques de bonnes pratiques.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2024</span>
+                        <h3 class="timeline-title" data-i18n="exp2-title">Ingénieur Agronome @ Entrepreneurs du Monde (Togo)</h3>
+                        <p class="timeline-desc" data-i18n="exp2-desc">Développement rural et agroécologie. Conduite d'enquêtes de terrain, diagnostics socio-économiques ruraux et modélisation de protocoles expérimentaux agroécologiques multi-sites.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2023</span>
+                        <h3 class="timeline-title" data-i18n="exp3-title">Ingénieur Agronome @ CacaoVerapaz (Guatemala)</h3>
+                        <p class="timeline-desc" data-i18n="exp3-desc">Optimisation des filières et traçabilité. Déploiement d'un système de traçabilité digitale pour la filière cacao et audit des interactions et flux entre les acteurs de la chaîne de valeur.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2022</span>
+                        <h3 class="timeline-title" data-i18n="exp4-title">Assistant Technique @ EARL Les Jonquilles (France)</h3>
+                        <p class="timeline-desc" data-i18n="exp4-desc">Analyse systémique en polyculture-élevage.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item reveal">
+                    <div class="timeline-content">
+                        <span class="timeline-date">2021</span>
+                        <h3 class="timeline-title" data-i18n="exp5-title">Chargé d'étude @ Fédération de Pêche (Martinique)</h3>
+                        <p class="timeline-desc" data-i18n="exp5-desc">Étude de la biodiversité et suivi des écosystèmes aquatiques tropicaux.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- COMPÉTENCES -->
+        <section id="skills" class="container">
+            <h2 class="section-title reveal" data-i18n="skills-title">Mes Compétences</h2>
+            <div class="skills-grid reveal">
+                <div class="skill-badge"><i data-lucide="leaf"></i> <span data-i18n="skill-1">Agroécologie & Agroforesterie</span></div>
+                <div class="skill-badge"><i data-lucide="sun"></i> <span data-i18n="skill-2">Transition Énergétique</span></div>
+                <div class="skill-badge"><i data-lucide="map"></i> <span data-i18n="skill-3">SIG (QGIS)</span></div>
+                <div class="skill-badge"><i data-lucide="bar-chart-2"></i> <span data-i18n="skill-4">Statistiques (R) & ImageJ</span></div>
+                <div class="skill-badge"><i data-lucide="globe"></i> <span data-i18n="skill-5">Cultures Tropicales (Cacao, Café...)</span></div>
+                <div class="skill-badge"><i data-lucide="share-2"></i> <span data-i18n="skill-6">Traçabilité & Filières Durables</span></div>
+                <div class="skill-badge"><i data-lucide="check-square"></i> <span data-i18n="skill-7">Ingénierie de Projet</span></div>
+                <div class="skill-badge"><i data-lucide="languages"></i> <span data-i18n="skill-8">Anglais Bilingue (TOEIC 990)</span></div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO / GALERIE -->
+        <section id="portfolio" class="container">
+            <h2 class="section-title reveal" data-i18n="port-title">Missions & Terrains</h2>
+            <div class="gallery reveal">
+                
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/agri1/800/600" alt="Culture en zone semi-aride">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title" data-i18n="gal1-title">Amélioration Variétale</h3>
+                        <p class="timeline-desc" data-i18n="gal1-desc">Kenya - Guayule Kenya Ltd</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/agri2/800/600" alt="Agroécologie au Togo">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title" data-i18n="gal2-title">Protocoles Agroécologiques</h3>
+                        <p class="timeline-desc" data-i18n="gal2-desc">Togo - Entrepreneurs du Monde</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/agri3/800/600" alt="Filière Cacao">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title" data-i18n="gal3-title">Traçabilité Digitale Cacao</h3>
+                        <p class="timeline-desc" data-i18n="gal3-desc">Guatemala - CacaoVerapaz</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/agri4/800/600" alt="Transition énergétique">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title" data-i18n="gal4-title">Nexus Énergie-Agri</h3>
+                        <p class="timeline-desc" data-i18n="gal4-desc">ISTOM - Décarbonation & Planification</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/agri5/800/600" alt="Polyculture élevage">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title" data-i18n="gal5-title">Polyculture-Élevage</h3>
+                        <p class="timeline-desc" data-i18n="gal5-desc">France - Analyse Systémique</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <img src="https://picsum.photos/seed/agri6/800/600" alt="Écosystème aquatique">
+                    <div class="gallery-overlay">
+                        <h3 class="gallery-title" data-i18n="gal6-title">Biodiversité Aquatique</h3>
+                        <p class="timeline-desc" data-i18n="gal6-desc">Martinique - Écosystèmes tropicaux</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER / CONTACT -->
+    <footer id="contact">
+        <div class="contact-info reveal">
+            <h3 data-i18n="footer-title">Discutons de vos projets</h3>
+            <p class="timeline-desc" style="margin-bottom: 1rem;" data-i18n="footer-subtitle">Ouvert aux opportunités et aux collaborations en agronomie.</p>
+            <a href="mailto:t.morel@istom.fr">t.morel@istom.fr</a>
+            <p class="timeline-desc" style="margin-bottom: 2rem; margin-top: 0.5rem;" data-i18n="footer-loc">07 66 39 91 69 • Angers, France</p>
+            
+            <div class="social-links">
+                <a href="#" class="social-icon" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+            </div>
+        </div>
+        <p class="copyright">© 2026 Tristan Morel. <span data-i18n="footer-copy">Tous droits réservés.</span></p>
+    </footer>
+
+    <!-- LIGHTBOX MODAL -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+        <button class="lightbox-close" aria-label="Fermer"><i data-lucide="x" size="32"></i></button>
+        <img src="" alt="Aperçu" class="lightbox-img" id="lightbox-img">
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // 1. Dictionnaire des traductions (i18n)
+        const i18n = {
+            fr: {
+                "nav-home": "Accueil",
+                "nav-exp": "Parcours",
+                "nav-skills": "Compétences",
+                "nav-port": "Missions",
+                "hero-title": "Ingénieur <span>Agronome</span>",
+                "hero-subtitle": "Spécialisé en cultures tropicales et transition énergétique. J'accompagne la résilience climatique et l'autonomie des systèmes agricoles à l'international.",
+                "btn-cv": "<i data-lucide='download'></i> Télécharger le CV",
+                "btn-missions": "Voir mes missions",
+                "exp-title": "Mon Parcours",
+                "exp1-title": "Ingénieur Agronome @ Guayule Kenya Limited (Kenya)",
+                "exp1-desc": "Amélioration variétale et semences en zone semi-aride. Optimisation de la production (levée de dormance, fertilisation), analyse phénotypique (R, ImageJ) et création de guides techniques de bonnes pratiques.",
+                "exp2-title": "Ingénieur Agronome @ Entrepreneurs du Monde (Togo)",
+                "exp2-desc": "Développement rural et agroécologie. Conduite d'enquêtes de terrain, diagnostics socio-économiques ruraux et modélisation de protocoles expérimentaux agroécologiques multi-sites.",
+                "exp3-title": "Ingénieur Agronome @ CacaoVerapaz (Guatemala)",
+                "exp3-desc": "Optimisation des filières et traçabilité. Déploiement d'un système de traçabilité digitale pour la filière cacao et audit des interactions et flux entre les acteurs de la chaîne de valeur.",
+                "exp4-title": "Assistant Technique @ EARL Les Jonquilles (France)",
+                "exp4-desc": "Analyse systémique en polyculture-élevage.",
+                "exp5-title": "Chargé d'étude @ Fédération de Pêche (Martinique)",
+                "exp5-desc": "Étude de la biodiversité et suivi des écosystèmes aquatiques tropicaux.",
+                "skills-title": "Mes Compétences",
+                "skill-1": "Agroécologie & Agroforesterie",
+                "skill-2": "Transition Énergétique",
+                "skill-3": "SIG (QGIS)",
+                "skill-4": "Statistiques (R) & ImageJ",
+                "skill-5": "Cultures Tropicales (Cacao, Café...)",
+                "skill-6": "Traçabilité & Filières Durables",
+                "skill-7": "Ingénierie de Projet",
+                "skill-8": "Anglais Bilingue (TOEIC 990)",
+                "port-title": "Missions & Terrains",
+                "gal1-title": "Amélioration Variétale",
+                "gal1-desc": "Kenya - Guayule Kenya Ltd",
+                "gal2-title": "Protocoles Agroécologiques",
+                "gal2-desc": "Togo - Entrepreneurs du Monde",
+                "gal3-title": "Traçabilité Digitale Cacao",
+                "gal3-desc": "Guatemala - CacaoVerapaz",
+                "gal4-title": "Nexus Énergie-Agri",
+                "gal4-desc": "ISTOM - Décarbonation & Planification",
+                "gal5-title": "Polyculture-Élevage",
+                "gal5-desc": "France - Analyse Systémique",
+                "gal6-title": "Biodiversité Aquatique",
+                "gal6-desc": "Martinique - Écosystèmes tropicaux",
+                "footer-title": "Discutons de vos projets",
+                "footer-subtitle": "Ouvert aux opportunités et aux collaborations en agronomie.",
+                "footer-loc": "07 66 39 91 69 • Angers, France",
+                "footer-copy": "Tous droits réservés."
+            },
+            en: {
+                "nav-home": "Home",
+                "nav-exp": "Experience",
+                "nav-skills": "Skills",
+                "nav-port": "Missions",
+                "hero-title": "<span>Agronomist</span>",
+                "hero-subtitle": "Specialized in tropical crops and energy transition. I support climate resilience and the autonomy of agricultural systems internationally.",
+                "btn-cv": "<i data-lucide='download'></i> Download CV",
+                "btn-missions": "View my missions",
+                "exp-title": "My Background",
+                "exp1-title": "Agronomist @ Guayule Kenya Limited (Kenya)",
+                "exp1-desc": "Varietal improvement and seeds in semi-arid zones. Production optimization (dormancy breaking, fertilization), phenotypic analysis (R, ImageJ), and creation of technical guides for best practices.",
+                "exp2-title": "Agronomist @ Entrepreneurs du Monde (Togo)",
+                "exp2-desc": "Rural development and agroecology. Conducting field surveys, rural socio-economic diagnostics, and modeling multi-site agroecological experimental protocols.",
+                "exp3-title": "Agronomist @ CacaoVerapaz (Guatemala)",
+                "exp3-desc": "Supply chain optimization and traceability. Deployment of a digital traceability system for the cocoa sector and audit of interactions and flows between value chain actors.",
+                "exp4-title": "Technical Assistant @ EARL Les Jonquilles (France)",
+                "exp4-desc": "Systemic analysis in mixed crop-livestock farming.",
+                "exp5-title": "Research Assistant @ Fishing Federation (Martinique)",
+                "exp5-desc": "Biodiversity study and monitoring of tropical aquatic ecosystems.",
+                "skills-title": "My Skills",
+                "skill-1": "Agroecology & Agroforestry",
+                "skill-2": "Energy Transition",
+                "skill-3": "GIS (QGIS)",
+                "skill-4": "Statistics (R) & ImageJ",
+                "skill-5": "Tropical Crops (Cocoa, Coffee...)",
+                "skill-6": "Traceability & Sustainable Supply Chains",
+                "skill-7": "Project Engineering",
+                "skill-8": "Bilingual English (TOEIC 990)",
+                "port-title": "Missions & Fieldwork",
+                "gal1-title": "Varietal Improvement",
+                "gal1-desc": "Kenya - Guayule Kenya Ltd",
+                "gal2-title": "Agroecological Protocols",
+                "gal2-desc": "Togo - Entrepreneurs du Monde",
+                "gal3-title": "Digital Cocoa Traceability",
+                "gal3-desc": "Guatemala - CacaoVerapaz",
+                "gal4-title": "Energy-Agri Nexus",
+                "gal4-desc": "ISTOM - Decarbonization & Planning",
+                "gal5-title": "Crop-Livestock Farming",
+                "gal5-desc": "France - Systemic Analysis",
+                "gal6-title": "Aquatic Biodiversity",
+                "gal6-desc": "Martinique - Tropical Ecosystems",
+                "footer-title": "Let's discuss your projects",
+                "footer-subtitle": "Open to opportunities and collaborations in agronomy.",
+                "footer-loc": "07 66 39 91 69 • Angers, France",
+                "footer-copy": "All rights reserved."
+            },
+            es: {
+                "nav-home": "Inicio",
+                "nav-exp": "Experiencia",
+                "nav-skills": "Habilidades",
+                "nav-port": "Misiones",
+                "hero-title": "Ingeniero <span>Agrónomo</span>",
+                "hero-subtitle": "Especializado en cultivos tropicales y transición energética. Apoyo la resiliencia climática y la autonomía de los sistemas agrícolas a nivel internacional.",
+                "btn-cv": "<i data-lucide='download'></i> Descargar CV",
+                "btn-missions": "Ver mis misiones",
+                "exp-title": "Mi Trayectoria",
+                "exp1-title": "Ingeniero Agrónomo @ Guayule Kenya Limited (Kenia)",
+                "exp1-desc": "Mejora varietal y semillas en zonas semiáridas. Optimización de la producción (ruptura de dormancia, fertilización), análisis fenotípico (R, ImageJ) y creación de guías técnicas de buenas prácticas.",
+                "exp2-title": "Ingeniero Agrónomo @ Entrepreneurs du Monde (Togo)",
+                "exp2-desc": "Desarrollo rural y agroecología. Realización de encuestas de campo, diagnósticos socioeconómicos rurales y modelización de protocolos experimentales agroecológicos multisitio.",
+                "exp3-title": "Ingeniero Agrónomo @ CacaoVerapaz (Guatemala)",
+                "exp3-desc": "Optimización de cadenas de suministro y trazabilidad. Despliegue de un sistema de trazabilidad digital para el sector cacaotero y auditoría de interacciones y flujos entre los actores de la cadena de valor.",
+                "exp4-title": "Asistente Técnico @ EARL Les Jonquilles (Francia)",
+                "exp4-desc": "Análisis sistémico en sistemas mixtos de agricultura y ganadería.",
+                "exp5-title": "Asistente de Investigación @ Federación de Pesca (Martinica)",
+                "exp5-desc": "Estudio de la biodiversidad y monitoreo de ecosistemas acuáticos tropicales.",
+                "skills-title": "Mis Habilidades",
+                "skill-1": "Agroecología y Agroforestería",
+                "skill-2": "Transición Energética",
+                "skill-3": "SIG (QGIS)",
+                "skill-4": "Estadística (R) e ImageJ",
+                "skill-5": "Cultivos Tropicales (Cacao, Café...)",
+                "skill-6": "Trazabilidad y Cadenas Sostenibles",
+                "skill-7": "Ingeniería de Proyectos",
+                "skill-8": "Inglés Bilingüe (TOEIC 990)",
+                "port-title": "Misiones y Trabajo de Campo",
+                "gal1-title": "Mejora Varietal",
+                "gal1-desc": "Kenia - Guayule Kenya Ltd",
+                "gal2-title": "Protocolos Agroecológicos",
+                "gal2-desc": "Togo - Entrepreneurs du Monde",
+                "gal3-title": "Trazabilidad Digital del Cacao",
+                "gal3-desc": "Guatemala - CacaoVerapaz",
+                "gal4-title": "Nexo Energía-Agro",
+                "gal4-desc": "ISTOM - Descarbonización y Planificación",
+                "gal5-title": "Sistemas Mixtos Agropecuarios",
+                "gal5-desc": "Francia - Análisis Sistémico",
+                "gal6-title": "Biodiversidad Acuática",
+                "gal6-desc": "Martinica - Ecosistemas Tropicales",
+                "footer-title": "Hablemos de tus proyectos",
+                "footer-subtitle": "Abierto a oportunidades y colaboraciones en agronomía.",
+                "footer-loc": "07 66 39 91 69 • Angers, Francia",
+                "footer-copy": "Todos los derechos reservados."
+            }
+        };
+
+        // Fonction pour changer la langue
+        function setLang(lang) {
+            // Mise à jour de l'état actif des boutons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+
+            // Mise à jour de tous les textes possédant l'attribut data-i18n
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+
+            // On recrée les icônes Lucide car certaines (comme celle du CV) ont pu être écrasées par le innerHTML
+            lucide.createIcons();
+            
+            // Mise à jour du tag html lang
+            document.documentElement.lang = lang;
+        }
+
+        // 2. Initialisation des icônes Lucide
+        lucide.createIcons();
+
+        // 3. Logique de la Lightbox
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        function openLightbox(element) {
+            const imgSrc = element.querySelector('img').src;
+            const imgAlt = element.querySelector('img').alt;
+            
+            lightboxImg.src = imgSrc;
+            lightboxImg.alt = imgAlt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeLightbox(event) {
+            if (event.target === lightbox || event.target.closest('.lightbox-close')) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto'; 
+                setTimeout(() => { lightboxImg.src = ''; }, 300); 
+            }
+        }
+
+        // 4. Animations au défilement (Scroll Reveal)
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); 
+            });
+        }, revealOptions);
+
+        revealElements.forEach(el => {
+            revealOnScroll.observe(el);
+        });
+        
+        setTimeout(() => {
+            const firstElements = document.querySelectorAll('.hero-content.reveal');
+            firstElements.forEach(el => el.classList.add('active'));
+        }, 100);
+    </script>
+</body>
+</html>
